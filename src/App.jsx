@@ -1,37 +1,38 @@
 import React, { Component } from "react";
 import Header from "./components/header.jsx"
-import Employee from "./components/employee.jsx"
+import { Data } from "./data.js";
+
 
 class App extends Component {
-    state = {
-        count: 0,
-        firstName: "",
-        lastName: "",
-        users: [],
-        todos: [],
-        display: "users"
-    };
+    constructor(props) {
+        super(props);
+        this.state = { 
+            sort: "",
+            filter: ""
+        };
 
-    componentDidMount = () => {
-        console.log("Component Mounted!");
+        this.handleSortChange = this.handleSortChange.bind(this);
+        this.handleSort = this.handleSort.bind(this);
+        this.handleFilterChange = this.handleFilterChange.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
     }
 
-    // handleInputChange = (event) => {
-    //     this.setState({
-    //         [event.target.name]: event.target.value
-    //     });
-    // };
+    handleSortChange(event) {
+        this.setState({ sort: event.target.value });
+    }
 
-    // submitInput = (event) => {
-    //     event.preventDefault();
-    //     console.log(this.state.firstName, this.state.lastName);
-    // }
+    handleSort(event) {
+        event.preventDefault();
+        console.log(this.state.sort);
+    }
 
-    handleIncrement = () => {
-        console.log("Hit Counter")
-        this.setState({
-            count: this.state.count + 10
-        })
+    handleFilterChange(event) {
+        this.setState({ filter: event.target.value });
+    }
+
+    handleFilter(event) {
+        event.preventDefault();
+        console.log(this.state.filter);
     }
 
     render() {
@@ -41,45 +42,47 @@ class App extends Component {
 
                 <Header header="React Employee Directory" />
 
-                <form>
-                    <select id="city-input">
-                        <option value="" selected>Sort By...</option>
-                        <option value="Salt Lake City">Name</option>
-                        <option value="Orem">Title</option>
-                        <option value="Ogden">Location</option>
-                    </select>
-                    <button onClick={this.submitInput}>
-                        Sort
-                </button>
+                <form onSubmit={this.handleSort}>
+                    <label>
+                        <select value={this.state.sort} onChange={this.handleSortChange}>
+                            <option value="" selected>Sort By...</option>
+                            <option value="Name">Name</option>
+                            <option value="Title">Title</option>
+                            <option value="Location">Location</option>
+                        </select>
+                    </label>
+                    <input type="submit" value="Sort" />
                 </form>
 
-                <form>
-                    <input
-                        placeholder="Filter by Location"
-                        type="text"
-                        name="lastName"
-                        value={this.state.lastName}
-                        onChange={this.handleInputChange}
-                    />
-                    <button onClick={this.submitInput}>
-                        Filter
-                </button>
+                <form onSubmit={this.handleFilter}>
+                    <label>
+                        <select value={this.state.filter} onChange={this.handleFilterChange}>
+                            <option value="" selected>Filter by Position...</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Front-End Developer">Front-End Developer</option>
+                            <option value="Back-End Developer">Back-End Developer</option>
+                            <option value="UX/UI Designer">UX/UI Designer</option>
+                            <option value="Graphic Designer">Graphic Designer</option>
+                            <option value="Intern">Intern</option>
+                        </select>
+                    </label>
+                    <input type="submit" value="Filter" />
                 </form>
 
-                <form>
-                    <input
-                        placeholder="Filter by Title"
-                        type="text"
-                        name="lastName"
-                        value={this.state.lastName}
-                        onChange={this.handleInputChange}
-                    />
-                    <button onClick={this.submitInput}>
-                        Filter
-                </button>
-                </form>
-
-                <Employee />
+                <ul>
+                    {Data.map((user) => {
+                        return (
+                            <li>
+                                {user.name}
+                                <ul>
+                                    <li>Title: {user.title}</li>
+                                    <li>Email: {user.email}</li>
+                                    <li>Phone: {user.phone}</li>
+                                    <li>City: {user.location}</li>
+                                </ul>
+                            </li>)
+                    })}
+                </ul>
 
             </div>
         );
