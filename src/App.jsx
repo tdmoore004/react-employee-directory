@@ -7,7 +7,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            display: "normal",
+            display: "",
             sort: "",
             filter: ""
         };
@@ -31,7 +31,6 @@ class App extends Component {
         this.setState({
             display: "sort"
         });
-        console.log(this.state.sort);
     }
 
     handleFilterChange(event) {
@@ -43,10 +42,9 @@ class App extends Component {
     handleFilter(event) {
         event.preventDefault();
         this.setState({
-            filter: event.target.value,
             display: "filter"
         });
-        console.log(this.state.filter);
+        console.log(this.state.filter)
     }
 
     sortCompare(user1, user2) {
@@ -83,31 +81,25 @@ class App extends Component {
               comparison = -1;
             }
             return comparison;
-        } else {
-            this.setState({
-                display: "normal"
-            })
         }
     }
 
     filterPosition(user) {
-        if (this.state.filter === "Manager") {
-            return user.title === "Manager"
-        } else if (this.state.filter === "Front-End Developer") {
-            return user.title === "Front-End Developer"
-        } else if (this.state.filter === "Back-End Developer") {
-            return user.title === "Back-End Developer"
-        } else if (this.state.filter === "UX/UI Designer") {
-            return user.title === "UX/UI Designer"
-        } else if (this.state.filter === "Graphic Designer") {
-            return user.title === "Graphic Designer"
-        } else if (this.state.filter === "Intern") {
-            return user.title === "Intern"
-        } else {
-            this.setState({
-                display: "normal"
-            })
-        }
+        console.log(this.state.filter);
+        return user.title === this.state.filter;
+        // if (this.state.filter === "Manager") {
+        //     return user.title === "Manager"
+        // } else if (this.state.filter === "Front-End Developer") {
+        //     return user.title === "Front-End Developer"
+        // } else if (this.state.filter === "Back-End Developer") {
+        //     return user.title === "Back-End Developer"
+        // } else if (this.state.filter === "UX/UI Designer") {
+        //     return user.title === "UX/UI Designer"
+        // } else if (this.state.filter === "Graphic Designer") {
+        //     return user.title === "Graphic Designer"
+        // } else if (this.state.filter === "Intern") {
+        //     return user.title === "Intern"
+        // }
     }
 
 render() {
@@ -144,7 +136,7 @@ render() {
                 <input type="submit" value="Filter" />
             </form>
 
-            {this.state.display === "normal" && (
+            {this.state.display === "" && (
                 <ul>
                     {Data.map((user) => {
                         return (
