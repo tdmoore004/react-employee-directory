@@ -87,19 +87,6 @@ class App extends Component {
     filterPosition(user) {
         console.log(this.state.filter);
         return user.title === this.state.filter;
-        // if (this.state.filter === "Manager") {
-        //     return user.title === "Manager"
-        // } else if (this.state.filter === "Front-End Developer") {
-        //     return user.title === "Front-End Developer"
-        // } else if (this.state.filter === "Back-End Developer") {
-        //     return user.title === "Back-End Developer"
-        // } else if (this.state.filter === "UX/UI Designer") {
-        //     return user.title === "UX/UI Designer"
-        // } else if (this.state.filter === "Graphic Designer") {
-        //     return user.title === "Graphic Designer"
-        // } else if (this.state.filter === "Intern") {
-        //     return user.title === "Intern"
-        // }
     }
 
 render() {
